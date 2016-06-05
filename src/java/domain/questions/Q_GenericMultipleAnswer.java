@@ -23,7 +23,6 @@ public class Q_GenericMultipleAnswer extends Question {
     private List<String> options;
     private boolean setup = false;
     private String question;
-    private Map<String, Object> customArguments;
 
     private void addDefaultAnswers() {
 //        addPossibleAnswer( ScoreScheme_OptionsList.THE_MORE_OPTIONS_THE_BETTER, "The More Different Options, the better" ); //@@wrong code
@@ -33,17 +32,7 @@ public class Q_GenericMultipleAnswer extends Question {
         setup = false;
     }
 
-    public void addArgument( String key, Object arg ) {
-        if( customArguments == null ) {//lazy initialize
-            customArguments = new HashMap<String, Object>();
-        }
 
-        customArguments.put( key, arg );
-    }
-
-    public Object getArgument( String key ) {
-        return customArguments.get( key );
-    }
 
     private void initializeIfNeeded() {
         if( !setup ) {

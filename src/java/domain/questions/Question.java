@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tools.Globals;
 import tools.Pair;
 
 /**
@@ -38,16 +37,11 @@ public abstract class Question implements Serializable {
     private List<QuestionObserver> observers = new ArrayList<QuestionObserver>();
     private Map<String, Question> derivedQuestions = new HashMap<String, Question>();
     private final UUID ID = UUID.randomUUID();
-    /**
-     * Generally this variable causes a problem as answers from different people will be stored in the same
-     * answers map. That is not what we might wish if we want the user to be able to give different answers
-     * each time.@@
-     */
-    private boolean allowMultipleAnswersFromSameUser = false;
     private String nextButtonType = NEXT_BUTTON_TYPE_IDONTKNOW; //default
     public static final String NEXT_BUTTON_TYPE_IDONTKNOW = "premade_idontknow";
     public static final String NEXT_BUTTON_TYPE_NEXT = "premade_next";
     public static final String NEXT_BUTTON_TYPE_NOBUTTON = "premade_nobutton";
+    private Map<String, Object> customArguments;
 
     /**
      * Debug method, returns a string of answers given / answers needed
@@ -90,6 +84,17 @@ public abstract class Question implements Serializable {
         return digest;
     }
 
+        public void addArgument( String key, Object arg ) {
+        if( customArguments == null ) {//lazy initialize
+            customArguments = new HashMap<String, Object>();
+        }
+
+        customArguments.put( key, arg );
+    }
+
+    public Object getArgument( String key ) {
+        return customArguments.get( key );
+    }
     
     @Override
     public boolean equals( Object q ) {
@@ -148,7 +153,7 @@ public abstract class Question implements Serializable {
      * Returns true if this is the answer that was missing, to mark the question answered.
      *
      * @param data
-     * @return
+     * @return True if this answer completed the question.
      */
     public boolean submitSingleAnswer( Map<String, String[]> data, String userID ) {
         boolean finalAnswer = false;
@@ -179,26 +184,7 @@ public abstract class Question implements Serializable {
         return finalAnswer;
     }
 
-    /**
-     * set to true
-     */
-    public void allowMultipleAnswersFromSameUser() {
-        allowMultipleAnswersFromSameUser( true );
-    }
-
-    /**
-     * set to the parameter value
-     *
-     * @param allow
-     */
-    public void allowMultipleAnswersFromSameUser( boolean allow ) {
-        allowMultipleAnswersFromSameUser = allow;
-    }
-
-    public boolean isMultipleAnswersFromSameUserAllowed() {
-        return allowMultipleAnswersFromSameUser;
-    }
-
+  
     public String getNextButtonType() {
         return nextButtonType;
     }

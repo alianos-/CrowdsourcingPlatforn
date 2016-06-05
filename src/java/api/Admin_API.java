@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package api;
 
 import domain.questions.Detective;
@@ -14,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import tools.Globals;
 
 /**
  *
@@ -34,6 +29,14 @@ public class Admin_API extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //This administration API is just an example. If you really need an admin API
+        //you should hide it behind administration login, and make sure to include 
+        //keeping logs of who is doing what
+        //This basic admin API can be accesed through "app/admin536GHSND238B.jsp" webpage
+        //It can only do 3 things. 
+        //- Show pending questions
+        //- Pause and Unpause the system (that means stop/start serving questions)
+        //- Do a random action as an example. In this case we add a question.
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
@@ -45,7 +48,7 @@ public class Admin_API extends HttpServlet {
             //QUESTIONS
             if (controller.equals("questions")) {
                 if (action.equals("showPending")) {
-                    String html = tools.printTools.toHtml(Globals.sherlock.getPendingQuestions());
+                    String html = tools.printTools.toHtml(Detective.SHERLOCK.getPendingQuestions());
                     result.append(html);
                 }
             } //SYSTEM
@@ -72,22 +75,30 @@ public class Admin_API extends HttpServlet {
     }
 
     public static String test1() {
-       
+        //we need the apple counter to monitor the response
         AppleCounter counter = new AppleCounter();
 
+        //Create a new question
         Q_GenericOptionsList q = new Q_GenericOptionsList();
+        //register who should be notified when this question completes
+        q.registerObserver(counter);
+        //set the question text and the possible options
         q.setQuestion("How many apples?");
         q.addPossibleAnswer("one", "one");
         q.addPossibleAnswer("two", "two");
         q.addPossibleAnswer("three", "three");
         q.addPossibleAnswer("four", "four");
-        q.setAnswersNeeded(1);
-        q.setNextButtonType(Question.NEXT_BUTTON_TYPE_NOBUTTON);
+        //how many people should answer it
+        q.setAnswersNeeded(3);
+        //if they can skip it
+        q.setNextButtonType(Question.NEXT_BUTTON_TYPE_NEXT);
+        //a unique identifier, so the observer can tell that it is THIS question that finished
         q.setIdentifier("numOfApples1");
-        q.addArgument("username", "a");
-        q.registerObserver(counter);
-        Globals.sherlock.addQuestion(q);
-        
+        //vehicle to pass any information that the observer 
+        q.addArgument("ArgumentA", "That observer is horrible");
+        //Register the question with the Detective (Singleton)
+        Detective.SHERLOCK.addQuestion(q);
+
         return "Started counting apples";
     }
 

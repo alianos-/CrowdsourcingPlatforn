@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package domain.questions;
 
 import java.util.ArrayList;
@@ -13,25 +9,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import tools.Globals;
-import tools.Log;
 import tools.MapServices;
 import tools.Pair;
-import tools.StringTools;
 
 /**
  * Creates a detective than can transfer questions made by the system to the
- * users and handle the answers. Because the detective can answer questions that
- * may not be answered he creates a list of expected answers and assigns a code
- * to them. When an answer comes back in it requires that code, along with a
- * data string that contains the answer.
+ * users and handle the answers. The detective holds a list of the questions
+ * that have been asked and monitors responses through a unique code. When an
+ * answer comes back in it requires that code, along with a data string that
+ * contains the answer.
+ *
+ * The Detective is set up as a singleton for simplicity.
  *
  * @author alianos
  */
 public class Detective {
 
-    //RUNTIME
+    /**
+     * Prevents more questions from being asked.
+     */
     public static boolean paused = false;
+
+    /**
+     * Easy access to the singleton
+     */
+    public static final Detective SHERLOCK = Detective.getInstance();
 
     public static boolean isPaused() {
         return Detective.paused;
@@ -42,9 +44,13 @@ public class Detective {
     }
 
     /**
-     * [User, [Q_ID, Question]]
+     * Map with all the pending questions [User, [Q_ID, Question]]
      */
     private Map<String, Map<UUID, Question>> questions = new HashMap<String, Map<UUID, Question>>();
+    /**
+     * Map with all the questions that have been asked and are awaiting an
+     * answer.
+     */
     private Map<UUID, ExpectedAnswer> expectedAnswers = new HashMap<UUID, ExpectedAnswer>();
     /**
      * [QuestionID,[UserIDs that answered it]]
@@ -53,7 +59,7 @@ public class Detective {
     /**
      * [UserID, [Similar,Similar]]
      */
-    private HashMap<String, Set<Pair<String, String>>> similarOptionSuggestionsByUser = new HashMap<String, Set<Pair<String, String>>>();
+
     private static final String ANY = "any_HDSJ$&1@JD*";//@@random code to not mix with usernames
     /**
      * [Question ID, [UserIDs that should be handed this question]]
@@ -68,21 +74,12 @@ public class Detective {
     }
 
     /**
-     * Checks if there are more pending questions of any type, for this
-     * observer.
+     * Returns the sum of the answers that have been given, and the answers that
+     * will be needed for all the questions to be answered.
      *
-     * @param qo
      * @return
      */
-    public boolean arePendingQuestions(QuestionObserver qo) {
-        if (numOfPendingQuestions(qo, null) > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public int getNumOfTotalQuestions() {
+    public int getNumOfTotalAnswersRequired() {
         int count = 0;
 
         for (Map<UUID, Question> qByUser : questions.values()) {
@@ -100,6 +97,11 @@ public class Detective {
         return count;
     }
 
+    /**
+     * How many answers have been given so far
+     *
+     * @return
+     */
     public int getTotalAnswered() {
 
         int count = 0;
@@ -110,6 +112,12 @@ public class Detective {
 
     }
 
+    /**
+     * How many answers has this user given
+     *
+     * @param userID
+     * @return
+     */
     public int getNumOfAnsweredQuestions(String userID) {
         int count = 0;
         for (HashSet<String> userIDs : usersByQuestions.values()) {
@@ -142,13 +150,28 @@ public class Detective {
             boolean userExcluded = isUserExcluded(q.getID(), userID);
             //if there are questions that still need answering and the user has not answered it before
             if (!q.isAnswered()
-                    && (!isQuestionAnsweredByUser(userID, q.getID()) || q.isMultipleAnswersFromSameUserAllowed())
+                    && (!isQuestionAnsweredByUser(userID, q.getID()))
                     && !userExcluded) {
                 count++;
             }
         }
 
         return count;
+    }
+
+    /**
+     * Checks if there are more pending questions of any type, for this
+     * observer.
+     *
+     * @param qo
+     * @return
+     */
+    public boolean arePendingQuestions(QuestionObserver qo) {
+        if (numOfPendingQuestions(qo, null) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -281,8 +304,6 @@ public class Detective {
         return result;
     }
 
-
-
     /**
      * Returns a list of all the questions, answered or pending.
      *
@@ -329,10 +350,12 @@ public class Detective {
             //if it exists, increment the answers needed
             q.incrementAnswersNeeded();
         } else //If we are adding a personal question, go for LIFO
-        if (user.equals(ANY)) {
-            userQuestions.put(q.getID(), q);
-        } else {
-            userQuestions = MapServices.addToHead(userQuestions, q.getID(), q); //LIFO                
+        {
+            if (user.equals(ANY)) {
+                userQuestions.put(q.getID(), q);
+            } else {
+                userQuestions = MapServices.addToHead(userQuestions, q.getID(), q); //LIFO                
+            }
         }
 
         this.questions.put(user, userQuestions);
@@ -391,14 +414,14 @@ public class Detective {
             boolean userExcluded = isUserExcluded(q.getID(), userID);
             //if there are questions that still need answering and the user has not answered it before
             if (!q.isAnswered()
-                    && (!isQuestionAnsweredByUser(userID, q.getID()) || q.isMultipleAnswersFromSameUserAllowed())
+                    && (!isQuestionAnsweredByUser(userID, q.getID()))
                     && !userExcluded) {
                 //add them to the list of asked questions (so we can trace it if an answer comes in)
                 ExpectedAnswer ea = new ExpectedAnswer(q.getID(), userID);
                 this.expectedAnswers.put(ea.getID(), ea);
 
                 //create a friendly form of the Question to send back to the Client
-                DetectiveQuestion dq = new DetectiveQuestion(q);                
+                DetectiveQuestion dq = new DetectiveQuestion(q);
                 dq.setExpectedAnswerUUID(ea.getID());
                 return dq;
             }

@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package api;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import domain.questions.Detective;
 import domain.questions.DetectiveQuestion;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import tools.GenericTools;
-import tools.Globals;
 
 /**
  *
@@ -50,17 +46,18 @@ public class Client_API extends HttpServlet {
                 return;
             }
 
-            //normally you would get the userID from the sessionID, if the user was logged in
-            //if the user was not logged in, you'd give him a temperary username
-            //our demo interface sends the userID right away in the sessionID field, 
+            //normally you would get the userID from the sessionID if the user was logged in.
+            //If the user was not logged in, you might want to give him a temperary username.
+            //Our demo interface sends the userID right away in the sessionID field, 
             //because no real sessions are going on.
             String userID = sessionID;
 
             JsonObject responseJson = new JsonObject();
 
             if (controller.equals("questions")) {
+                //returns the next available question to whoever asked
                 if (action.equals("getAvailable")) {
-                    DetectiveQuestion dq = Globals.sherlock.getNextQuestion(userID);
+                    DetectiveQuestion dq = Detective.SHERLOCK.getNextQuestion(userID);
                     if (dq != null) {
                         String dqJsonString = new Gson().toJson(dq);
                         JsonParser parser = new JsonParser();
@@ -71,12 +68,14 @@ public class Client_API extends HttpServlet {
                 }
 
             } else if (controller.equals("answer")) {
+                //Lets the detective know someone gave an answer
                 if (action.equals("submit")) {
-                    Globals.sherlock.answerQuestion(UUID.fromString(request.getParameter("answerID")), userID, request.getParameterMap());
+                    Detective.SHERLOCK.answerQuestion(UUID.fromString(request.getParameter("answerID")), userID, request.getParameterMap());
                 }
             }else if (controller.equals("counters")) {
+                //Requests how many answers this particular user has given.
                 if (action.equals("getUserSpecific")) {
-                    int userAnswered = 5;
+                    int userAnswered = Detective.SHERLOCK.getNumOfAnsweredQuestions(userID);
                     responseJson.addProperty("userAnswered", userAnswered);
                 }
             }

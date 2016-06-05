@@ -24,27 +24,12 @@ public class Q_Boolean extends Question {
     public static final String NO = "no";
     private boolean setup = false;
     private String question;
-    private Map<String, Object> customArguments;
 
     private void addDefaultAnswers() {
         addPossibleAnswer( Q_Boolean.YES, "Yes" );
         addPossibleAnswer( Q_Boolean.NO, "No" );
     }
 
-    public void addArgument( String key, Object arg ) {
-        if( customArguments == null ) {//lazy initialize
-            customArguments = new HashMap<String, Object>();
-        }
-
-        customArguments.put( key, arg );
-    }
-
-    public Object getArgument( String key ) {
-        if( customArguments.containsKey( key ) ) {
-            return customArguments.get( key );
-        }
-        return null;
-    }
 
     private void initializeIfNeeded() {
         if( !setup ) {

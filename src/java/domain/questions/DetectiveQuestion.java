@@ -6,10 +6,7 @@ package domain.questions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-import tools.Globals;
-import tools.Pair;
 
 /**
  * A simplified question suitable to be returned for handling by the interface. It only contains the question
@@ -52,7 +49,6 @@ public final class DetectiveQuestion {
             this.addDerived( "similarOptions" );
         }
 
-        this.setAllowMultipleAnswers( q.isMultipleAnswersFromSameUserAllowed() );
         this.setNextButtonType( q.getNextButtonType() );
     }
 
