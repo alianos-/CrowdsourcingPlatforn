@@ -1,0 +1,383 @@
+/*
+    Document   : standard
+    Created on : 17-Jun-2013, 17:56:52
+    Author     : alianos
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html{
+    background: #F4F4F4 url(../resources/bodybg.gif) center repeat-y;
+    height:100%;
+}
+body {
+    height:100%;
+    margin: 0px;
+    overflow-y: scroll;
+}
+#mainContainer{
+    width:900px;
+    margin-left: auto;
+    margin-right: auto;
+    color:#555;
+    font:13px Verdana, sans-serif;
+    min-height:100%;
+    position:relative;
+}
+
+#topPanel{
+    padding:10px;
+    background: #fff url(../resources/topHeaderBack.png) center bottom no-repeat;
+    height:80px;
+}
+
+#sidePanel {
+    width:140px;
+    height: 180px;
+    float:left;
+    padding:20px;
+    border-right-style: dotted;
+    border-right-width: 1px;
+    border-right-color: #ccc;
+}
+
+#mainContent{
+    margin:10px;
+    float:left;
+    width: 698px;
+}
+
+#mainWrapper{
+    padding-bottom:80px; /* Height of the footer element + any actual padding we want */
+}
+#footer {    
+    border-top-style: dotted;
+    border-top-width: 1px;
+    border-top-color: #ccc;
+    padding-top:10px;
+    width:100%;
+    height:30px;
+    position:absolute;
+    bottom:0;
+    left:0;
+    text-align: center;
+    color:#777;
+    font-size:smaller;
+}
+
+#topLeftPanel{
+    float: left;
+}
+#topRightPanel{
+    float:right;
+    text-align: right;
+}
+.topUsername{
+    color:#555;
+    font-size:20px;
+    height: 25px;
+}
+
+#subToolbarRight, #subToolbarRight a, #subToolbarRight .a{
+    font-size:9px;
+    color:#aaa;
+    text-decoration: none;
+}
+#subToolbarRight a:hover,#subToolbarRight .a:hover{
+    color:#777;
+    text-decoration: underline;
+    cursor:pointer;
+}
+#subToolbarRight input{
+    vertical-align: -2px;
+}
+
+.quarterBlock{
+    width: 290px;
+    float: left;
+}
+
+button{
+    cursor:pointer;
+}
+button:disabled{
+    cursor: auto;
+}
+
+.sidePanelButton{
+    width:140px;
+}
+.sidePanelButton:disabled {
+    background: #dfdfdf;
+    color:#bbbbbb;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+
+.standarButton {
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 20px;
+    text-decoration:none;
+}
+.standarButton:hover:enabled {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e5e5e5), color-stop(1, #d5d5d5) );
+    background:-moz-linear-gradient( center top, #e5e5e5 5%, #d5d5d5 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5e5e5', endColorstr='#d5d5d5');
+    background-color:#dfdfdf;
+}
+.standarButton:active:enabled {
+    -moz-box-shadow:inset 0px 0px 10px 2px #bbb;
+    -webkit-box-shadow:inset 0px 0px 10px 2px #bbb;
+    box-shadow:inset 0px 0px 10px 2px #bbb;
+    background-color:#dfdfdf;
+    border:1px solid #aaa;
+}
+
+.greyButton {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+    background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+    background-color:#ededed;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    color:#777777;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 20px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #ffffff;
+}
+.greyButton:hover:enabled {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e5e5e5), color-stop(1, #d5d5d5) );
+    background:-moz-linear-gradient( center top, #e5e5e5 5%, #d5d5d5 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5e5e5', endColorstr='#d5d5d5');
+    background-color:#dfdfdf;
+}
+.greyButton:active:enabled {
+    -moz-box-shadow:inset 0px 0px 10px 2px #bbb;
+    -webkit-box-shadow:inset 0px 0px 10px 2px #bbb;
+    box-shadow:inset 0px 0px 10px 2px #bbb;
+    background-color:#dfdfdf;
+    border:1px solid #aaa;
+}
+
+
+.orangeButton {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f6b33d), color-stop(1, #d29105) );
+    background:-moz-linear-gradient( center top, #f6b33d 5%, #d29105 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6b33d', endColorstr='#d29105');
+    background-color:#f6b33d;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #eda933;
+    display:inline-block;
+    color:#ffffff;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #cd8a15;
+}.orangeButton:hover:enabled {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f1ad38), color-stop(1, #a78b00) );
+    background:-moz-linear-gradient( center top, #f1ad38 5%, #a78b00 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1ad38', endColorstr='#a78b00');
+    background-color:#d29105;
+}.orangeButton:active:enabled {
+    -moz-box-shadow:inset 0px 0px 10px 2px #f6b33d;
+    -webkit-box-shadow:inset 0px 0px 10px 2px #f6b33d;
+    box-shadow:inset 0px 0px 10px 2px #f6b33d;
+    background-color:#d29105;
+}
+
+.greenButton {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #77d42a), color-stop(1, #5cb811) );
+    background:-moz-linear-gradient( center top, #77d42a 5%, #5cb811 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77d42a', endColorstr='#5cb811');
+    background-color:#77d42a;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #268a16;
+    display:inline-block;
+    color:#306108;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #aade7c;
+}.greenButton:hover:enabled {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #6dca21), color-stop(1, #57b103) );
+    background:-moz-linear-gradient( center top, #57b103 5%, #59b305 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#57b103', endColorstr='#59b305');
+    background-color:#5cb811;
+}.greenButton:active:enabled {
+    -moz-box-shadow:inset 0px 0px 10px 2px #299300;
+    -webkit-box-shadow:inset 0px 1px 10px 2px #299300;
+    box-shadow:inset 0px 0px 10px 2px #299300;
+    background-color:#5cb811;
+    border:1px solid #066a00;
+}
+.greenButton:disabled {
+    background: #ada;
+    border:1px solid #efe;
+    text-shadow:1px 1px 0px #efe;
+    color:#8a8;
+}
+
+
+.inGuideButton{
+    float:right;
+    margin:5px 25px;
+}
+.panelInput{
+    border:1px solid #aaa;
+    color: #555;
+    font-size: 20px;
+    height: 19px;
+    padding: 5px;
+    margin: 2px;
+    width:330px;
+    vertical-align: bottom;
+}
+.panelInput:disabled{
+    color: #666;
+    background: #DDD;
+    text-shadow: 0px 1px 0px rgba(255,255,255,1);
+}
+.inputLikeText{    
+    color: #555;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.counters{
+    color:#555;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+    font-family: fantasy;
+}
+/*Special frame used to singal an update*/
+.updateme{
+    display: hidden;
+}
+
+.clear{
+    clear:both;
+}
+.right{
+    float:right;
+}
+.highlight{
+    font-weight: bold;
+}
+.left{
+    float:left;
+}
+.green{
+    color:green;
+}
+
+.red{
+    color:red;
+}
+
+.back1{
+    background:#c4c4c4;
+}
+.back2{
+    background:#ada;
+}
+.back3{
+    background: #eda933;
+}
+.back4{
+    background: #E6F2FF;
+}
+
+.redemptionCode{
+    text-align: center;
+    border: 1px solid #aaa;
+    color: #555;
+    font-size: 20px;
+    padding: 8px;
+    margin: auto;
+}
+
+.subnote{
+    font-size:10px;
+    color:#aaa;
+    width:420px;
+    padding:1px 1px 5px 220px; /*220 to occupy the rest of the page and force other elements to wrap*/
+}
+
+.subnoteText{
+    font-size:10px;
+    color:#aaa;   
+}
+
+.detailsBlock{
+    color:#888;
+    padding:0px 10px 10px;
+}
+
+
+.attrWrapper {
+    position: relative;
+    color: #555;
+    font: 13px Verdana, sans-serif;
+}
+.attrWrapper table, .attrWrapper th, .attrWrapper td{
+    border:1px solid #c4c4c4;
+    margin: 5px 0px;
+}
+.attrWrapper table{
+    float: left;
+    margin: 10px 5px;
+    border-collapse:collapse;
+    border-spacing:0px;
+}
+.attrWrapper th, .attrWrapper td{
+    vertical-align:top;
+    text-align: left;
+    padding: 4px;
+}
+
+.attrWrapper .attrCategory{
+    width: 300px;       
+    clear: both;
+}
+.attrWrapper .attrCategory .attrCategoryText{
+    font-weight: bold;
+}
+
+.attrWrapper .attrName{
+    width: 160px;    
+}
+.attrWrapper .attrName .attrNameText{
+    font-weight: bold;
+
+}
+.attrWrapper .attrValues{
+    width: 160px;
+}
+
+.attrWrapper .attrValues .attrValue{
+}
+.attrWrapper .attrValues .attrValue    .attrValueText{}
+
