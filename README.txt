@@ -1,4 +1,3 @@
-Created on      : 15-May-2016
 Author          : Andreas Lianos
 Library version : 1.0
 
@@ -28,7 +27,6 @@ handle responses from the Detective.
 
 # The code contains examples that simplify all this. #
 
- 
 2. CONTENTS
 ------------
 On the java side the library contains the following packages.
