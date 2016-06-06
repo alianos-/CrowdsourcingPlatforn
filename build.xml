@@ -13,7 +13,7 @@
 <target name="-post-compile">
     <jar destfile="${basedir}/dist/${ant.project.name}.jar">
         <fileset dir="${basedir}/build/web/WEB-INF/classes">
-        </fileset>
+        </fileset> 
         <fileset dir="${basedir}/build/web/META-INF">
         </fileset>
     </jar>
