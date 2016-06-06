@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2014-2016 Andreas Lianos
+ * Licensed under the MIT Liecense (LICENSE.txt).
+ * Author Andreas Lianos
+ */
+
 package domain.questions;
 
 import java.util.ArrayList;
@@ -18,8 +24,6 @@ import tools.MapServices;
  * contains the answer.
  *
  * The Detective is set up as a singleton for simplicity.
- *
- * @author alianos
  */
 public class Detective {
 

@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2014-2016 Andreas Lianos
+ * Licensed under the MIT Liecense (LICENSE.txt).
+ * Author Andreas Lianos
  */
 package tools;
 
@@ -10,10 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author alianos
- */
 public class MapServices<KT, VT> {
 
     public static void friendlyPrint( Map mp ) {

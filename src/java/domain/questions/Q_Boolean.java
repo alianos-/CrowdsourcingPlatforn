@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2014-2016 Andreas Lianos
+ * Licensed under the MIT Liecense (LICENSE.txt).
+ * Author Andreas Lianos
  */
 package domain.questions;
 
@@ -11,10 +12,6 @@ import java.util.List;
 import java.util.Map;
 import tools.Pair;
 
-/**
- *
- * @author alianos
- */
 public class Q_Boolean extends Question {
 
     private List<PossibleAnswer> possibleAnswers = new ArrayList<PossibleAnswer>();

@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2014-2016 Andreas Lianos
+ * Licensed under the MIT Liecense (LICENSE.txt).
+ * Author Andreas Lianos
  */
 package domain.questions;
 
@@ -11,8 +12,6 @@ import java.util.UUID;
 /**
  * A simplified question suitable to be returned for handling by the interface. It only contains the question
  * string, the answer options and a unique ID assigned by the Detective when asked.
- *
- * @author alianos
  */
 public final class DetectiveQuestion {
 

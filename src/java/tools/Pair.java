@@ -1,14 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2014-2016 Andreas Lianos
+ * Licensed under the MIT Liecense (LICENSE.txt).
+ * Author Andreas Lianos
  */
 package tools;
 
 import java.io.Serializable;
 
 /**
- *
- * @author alianos
  */
 public class Pair<A, B> implements Serializable {
 

@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2014-2016 Andreas Lianos
+ * Licensed under the MIT Liecense (LICENSE.txt).
+ * Author Andreas Lianos
  */
 package domain.questions;
 
@@ -8,7 +9,6 @@ import java.util.Collection;
 
 /**
  * Possible answers are registered by each implementation of "question"
- * @author alianos
  */
 public class PossibleAnswer {
     //possible answer types

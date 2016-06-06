@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2014-2016 Andreas Lianos
+ * Licensed under the MIT Liecense (LICENSE.txt).
+ * Author Andreas Lianos
  */
 package domain.questions;
 
@@ -21,8 +22,6 @@ import tools.Pair;
 /**
  * Defines the abstract class upon which questions of various forms are based. We create the Question and feed
  * it to Detective to find the answers.
- *
- * @author alianos
  */
 public abstract class Question implements Serializable {
 

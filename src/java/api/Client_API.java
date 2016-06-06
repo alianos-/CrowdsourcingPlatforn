@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2016 Andreas Lianos
+ * Licensed under the MIT Liecense (LICENSE.txt).
+ * Author Andreas Lianos
+ */
 package api;
 
 import com.google.gson.Gson;
@@ -14,10 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import tools.GenericTools;
 
-/**
- *
- * @author alianos
- */
 public class Client_API extends HttpServlet {
 
     /**

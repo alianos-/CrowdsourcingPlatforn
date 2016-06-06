@@ -1,6 +1,7 @@
 /*
- * To change this template, choose GenericTools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2014-2016 Andreas Lianos
+ * Licensed under the MIT Liecense (LICENSE.txt).
+ * Author Andreas Lianos
  */
 package tools;
 
@@ -16,10 +17,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-/**
- *
- * @author alianos
- */
 public class GenericTools {
 
     /**
