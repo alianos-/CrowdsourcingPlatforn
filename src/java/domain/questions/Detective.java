@@ -7,10 +7,8 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 import tools.MapServices;
-import tools.Pair;
 
 /**
  * Creates a detective than can transfer questions made by the system to the
@@ -491,7 +489,6 @@ public class Detective {
      * @param data = the actual answer given
      */
     public void answerQuestion(UUID answerID, String userID, Map<String, String[]> data) {
-        System.out.println("test");
         ExpectedAnswer ea = this.expectedAnswers.get(answerID);
         if (ea != null) {
             Question q = this.getQuestion(ea.getqID());

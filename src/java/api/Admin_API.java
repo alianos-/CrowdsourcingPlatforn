@@ -89,8 +89,8 @@ public class Admin_API extends HttpServlet {
         q.addPossibleAnswer("three", "three");
         q.addPossibleAnswer("four", "four");
         //how many people should answer it
-        q.setAnswersNeeded(3);
-        //if they can skip it
+        q.setAnswersNeeded(1);
+        //Allow the user to skip the question.
         q.setNextButtonType(Question.NEXT_BUTTON_TYPE_NEXT);
         //a unique identifier, so the observer can tell that it is THIS question that finished
         q.setIdentifier("numOfApples1");

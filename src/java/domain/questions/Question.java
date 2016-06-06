@@ -28,14 +28,9 @@ public abstract class Question implements Serializable {
 
     public static final String TYPE_MULTIPLE_OPTIONS = "multiple_options";
     public static final String TYPE_UNIQUE_OPTION = "unique_options";
-    //indicates some of the original options are should be consolidated.
-    public static final String TYPE_DERIVED_SIMILAR_OPTIONS = "similar_options";
-    public static final String TYPE_OPTIONAL_INPUT_TEXT = "optional_input_text";
-    public static final String TYPE_COMMAND = "command";
     private int answersNeeded = 1;
     private int answersGiven = 0;
     private List<QuestionObserver> observers = new ArrayList<QuestionObserver>();
-    private Map<String, Question> derivedQuestions = new HashMap<String, Question>();
     private final UUID ID = UUID.randomUUID();
     private String nextButtonType = NEXT_BUTTON_TYPE_IDONTKNOW; //default
     public static final String NEXT_BUTTON_TYPE_IDONTKNOW = "premade_idontknow";
@@ -129,14 +124,6 @@ public abstract class Question implements Serializable {
 
     public void setIdentifier( String identifier ) {
         this.identifier = identifier;
-    }
-
-    public void addDerived( String derivedQuestionName, Question q ) {
-        derivedQuestions.put( derivedQuestionName, q );
-    }
-
-    public Question getDerived( String derivedQuestionName ) {
-        return derivedQuestions.get( derivedQuestionName );
     }
 
     public void registerObserver( QuestionObserver obs ) {

@@ -1,9 +1,9 @@
 /*
     Document   : standard
     Created on : 17-Jun-2013, 17:56:52
-    Author     : alianos
+    Author     : Andreas Lianos
     Description:
-        Purpose of the stylesheet follows.
+        cp demo UI
 */
 
 html{
@@ -125,6 +125,7 @@ button:disabled{
     font-size:15px;
     font-weight:bold;
     padding:6px 20px;
+    margin: 2px 0 ;
     text-decoration:none;
 }
 .standarButton:hover:enabled {

@@ -24,14 +24,6 @@ public class MapServices<KT, VT> {
         }
     }
 
-    public static synchronized void friendlyPrintToFile( Map mp, String filename ) {
-        Iterator it = mp.entrySet().iterator();
-        while( it.hasNext() ) {
-            Map.Entry pairs = (Map.Entry) it.next();
-            Log.log( filename, pairs.getKey() + " = " + pairs.getValue() );
-        }
-    }
-
     /**
      * Returns an array with the maps that represent found/notFound/shouldBe
      *

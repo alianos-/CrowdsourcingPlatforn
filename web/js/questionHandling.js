@@ -1,5 +1,16 @@
+/*Author: Andreas Lianos, 2013 */
+
+//### EXAMPLE RENDERING OF THE QUESTIONS
+
+//### This functions can be used as is. You extend the library by adding options
+//### to the DetectiveQuestion java class, and then picking up those options here
+//### and doing whatever it it needs to be done with those options.
+//### The last function in this file contains the upload ajax call, which 
+//### you will have to update to match your url.
+
+
 //intercept and handle form submissions
-$(document).on('submit', "#multiple_options_form", function(e) {
+$(document).on('submit', "#multiple_options_form", function (e) {
     e.preventDefault();
     var $form = $(this);
     var data = {
@@ -8,7 +19,7 @@ $(document).on('submit', "#multiple_options_form", function(e) {
     //add all the checked checkboxes to the answer
     var answers = new Array();
     var $checkboxes = $form.find('input:checkbox:checked');
-    $checkboxes.each(function() {
+    $checkboxes.each(function () {
         answers.push($(this).attr("answerCode"));
     });
 
@@ -17,35 +28,23 @@ $(document).on('submit', "#multiple_options_form", function(e) {
     submitGenericAnswer(data);
 });
 
-
-
+/**
+ * Takes as input the json formatted question as sent by the server,
+ * and renders it to the browser using javascript. This is how the server and
+ * the client exchange information.
+ * 
+ * @param {json} detectiveQuestion
+ * @returns {String|formatedQuestion.$html|jQuery}
+ */
 function formatedQuestion(data) {
     if (data == null || data == "" || jQuery.isEmptyObject(data)) {
         return "It appears there are no more questions you can answer at the moment! Please check back later.<br>" +
-        "(This page will auto-update when more questions become available)<div class='updateme'>&nbsp<div>";
+                "(This page will auto-update when more questions become available)<div class='updateme'>&nbsp<div>";
     }
-    if (data["hasRedeemed"]) {
-
-        var $redemptionCodeDiv = $('<div>', {
-            "class": "redemptionCode back1",
-            "id": "$redemptionCode"
-        });
-        $redemptionCodeDiv.text(getCookie("redemptionCode"));
-
-        var $redemptionDivWrapper = $('<div>', {
-            "class": "slidingPanelContents"
-        });
-        $redemptionDivWrapper.html("You have redeemed your answers, and no more questions can be " +
-            "served to this account.<br><br><br>Thanks for participating :)<br><br><span class='subnoteText'>Redemption Code</span>");
-        $redemptionDivWrapper.append($redemptionCodeDiv);
-
-        return $redemptionDivWrapper[0].outerHTML;
-    }
-
+    
     var type = data["type"];
     var answers = data["possibleAnswers"];
-    var derived = data["derivedQuestions"];
-    //    var exclude = data["excludeAnswers"];    
+    var derived = data["derivedQuestions"];   
     var allowMultipleAnswers = data["allowMultipleAnswers"];
     var nextButtonType = data["nextButtonType"];
 
@@ -56,14 +55,14 @@ function formatedQuestion(data) {
     var $BlankIDontKnowButton = $('<button>', {
         "answerID": data.ID,
         "onclick": "submitNoAnswer(this);",
-        "class": "standarButton"
+        "class": "standarButton greyButton"
     });
 
     var $skip = $('<button>', {
         "answerID": data.ID,
         "skip": "true",
         "onclick": "submitNoAnswer(this);",
-        "class": "standarButton"
+        "class": "standarButton greyButton"
     });
     $skip.html("Skip");
 
@@ -76,7 +75,7 @@ function formatedQuestion(data) {
                         "answerCode": answers[key].answerCode,
                         "answerID": data.ID,
                         "onclick": "submitButtonAnswer(this);",
-                        "class": "standarButton"
+                        "class": "standarButton greyButton"
                     });
                     $button.html(answers[key].answerString);
                 }
@@ -86,12 +85,10 @@ function formatedQuestion(data) {
                     $html.append($("<br>"));
                 }
             }
-        }
-        else {
+        } else {
             $html.append($("The question has no answers! Bummer!"));
         }
-    }
-    else if (type === "multiple_options") {
+    } else if (type === "multiple_options") {
 
         if (answers !== null) {
             var $form = $("<form>", {
@@ -123,12 +120,10 @@ function formatedQuestion(data) {
             $form.append($submitButton);
 
             $html.append($form);
-        }
-        else {
+        } else {
             $html.append($("The question has no answers! Bummer!"));
         }
-    }
-    else if (type === "optional_input_text") {
+    } else if (type === "optional_input_text") {
         if (answers !== null) {
             $html.html(data.question + "<br><br>");
             for (key in answers) {
@@ -141,8 +136,7 @@ function formatedQuestion(data) {
                             "class": "standarButton"
                         });
                         $button.html(answers[key].answerString);
-                    }
-                    else if (answers[key].type === 2) {
+                    } else if (answers[key].type === 2) {
                         var $button = $('<button>', {
                             "answerCode": answers[key].answerCode,
                             "answerID": data.ID,
@@ -158,73 +152,29 @@ function formatedQuestion(data) {
                     $html.append($("<br>"));
                 }
             }
-        }
-        else {
+        } else {
             $html.append($("The question has no answers! Bummer!"));
         }
     }
-    else if (type === "command") {
-        if(data.question.indexOf("showResults") > -1){            
-            if(data.question=="showResults1"){                
-                $html.append(getResults(1));
-            }
-            else if(data.question=="showResults2"){                
-                $html.append(getResults(2));
-            }
-            else if(data.question=="showResults3"){                
-                $html.append(getResults(3));
-            }
-        }
-        //always reply that the command was received
-        var obj = {
-            "answerID": data.ID,            
-            "isClueless": "0",
-            "controller": "answer",
-            "action": "submit",
-            "sessionID": getCookie("sessionID")
-        };
-        jQuery.ajax({
-        url: "/app/Client_API",
-        data: $.param(obj, true),
-        success: function(data) {
-            data = getJson(data);
-            if (data.error == "notLoggedIn") {
-                signOut("timeout");
-            }
-            else {            
-            }
-        }
-    });
-    }
 
-    //@@remedy! Put a skip button instead. Does not work in genrall as it reduces the 
-    //total answers needed.
-    if (allowMultipleAnswers === true) {
-        $html.append($skip).append($("<br>"));
-    } else if (type === "optional_input_text") {
-    //dont add anything
+    if (type === "optional_input_text") {
+        //dont add anything
     }
-    else if (nextButtonType === "premade_idontknow") {
+    if (nextButtonType === "premade_idontknow") {
         $BlankIDontKnowButton.html("I don't know");
         $html.append($BlankIDontKnowButton).append($("<br>"));
     }
     else if (nextButtonType === "premade_next") {
         $BlankIDontKnowButton.html("Next");
         $html.append($BlankIDontKnowButton).append($("<br>"));
-    } 
-    else if (nextButtonType === "premade_nobutton") {
-    //add bo button! Surpriiiiise!
-    }
-    else {
+    } else if (nextButtonType === "premade_nobutton") {
+        //add bo button! Surpriiiiise!
+    } else {
         $BlankIDontKnowButton.html(nextButtonType);
         $html.append($BlankIDontKnowButton).append($("<br>"));
     }
 
-    if ($.inArray("similarOptions", derived) > -1) {
-
-    }
-
-    //add an extra button for similarity question, if needed
+     //add an extra button for similarity question, if needed
     if ($.inArray("similarOptions", derived) > -1) {
         var $similarOptionsButton = $('<button>', {
             "id": "similarAnswersButton",
@@ -260,7 +210,7 @@ function swapForInputField(obj) {
     });
     $submitButton.html("Submit");
 
-    $input.keypress(function(e) {//default action when enter is hit
+    $input.keypress(function (e) {//default action when enter is hit
         if (e.which === 13) {
             e.preventDefault();
             $submitButton.click();
@@ -275,7 +225,7 @@ function swapForInputField(obj) {
  *Disabled all answer buttons
  */
 function disableAnswerButtons() {
-    $("#activeQuestion button").each(function() {
+    $("#activeQuestion button").each(function () {
         $(this).prop('disabled', true);
     });
 }
@@ -283,7 +233,7 @@ function disableAnswerButtons() {
  *Enables all answer buttons
  */
 function enableAnswerButtons() {
-    $("#activeQuestion button").each(function() {
+    $("#activeQuestion button").each(function () {
         $(this).prop('disabled', false);
     });
 }
@@ -353,14 +303,13 @@ function submitAnswer(data) {
     jQuery.ajax({
         url: "/app/Client_API",
         data: $.param(data, true),
-        success: function(data) {
+        success: function (data) {
             data = getJson(data);
             if (data.error == "notLoggedIn") {
                 signOut("timeout");
-            }
-            else {
+            } else {
                 var cooldown = getQuestions();
-            //                setMainFrame( "Fetching next question... (+"+Math.floor((cooldown/1000))+"sec delay)" );
+                //                setMainFrame( "Fetching next question... (+"+Math.floor((cooldown/1000))+"sec delay)" );
             }
         }
     });

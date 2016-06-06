@@ -24,15 +24,9 @@ public class Q_GenericMultipleAnswer extends Question {
     private boolean setup = false;
     private String question;
 
-    private void addDefaultAnswers() {
-//        addPossibleAnswer( ScoreScheme_OptionsList.THE_MORE_OPTIONS_THE_BETTER, "The More Different Options, the better" ); //@@wrong code
-    }
-
     public void reset() {
         setup = false;
     }
-
-
 
     private void initializeIfNeeded() {
         if( !setup ) {
@@ -125,9 +119,6 @@ public class Q_GenericMultipleAnswer extends Question {
     }
 
     @Override
-    /**
-     * If you dont call resetResult() after this, results from different people will be merged
-     */
     public Map<String, Integer> getResults() {
         Map<String, Integer> copy = new HashMap<String, Integer>();
         for( Map.Entry<String, Integer> entry : answers.entrySet() ) {
@@ -136,13 +127,6 @@ public class Q_GenericMultipleAnswer extends Question {
 
 
         return copy;
-    }
-
-    public void resetResult() {
-        //@@this so wrong, but answers need to be reset so answers from different people dont get merged.
-        //DAFUG?
-        setup = false;
-        initializeIfNeeded();
     }
 
     @Override

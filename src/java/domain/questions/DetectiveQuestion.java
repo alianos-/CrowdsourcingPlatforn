@@ -20,10 +20,8 @@ public final class DetectiveQuestion {
     private UUID ID;
     private List<PossibleAnswer> possibleAnswers = new ArrayList<PossibleAnswer>();
     private String type;
-    private List<String> derivedQuestions = new ArrayList<String>();
     private Boolean allowMultipleAnswers = false;//from the same user
     private String nextButtonType;
-    private List<String> excludeAnswers = new ArrayList<String>();
     private String signature;
 
     /**
@@ -43,12 +41,6 @@ public final class DetectiveQuestion {
         }
         this.addQuestion( q.getQuestion() );
         this.setType( q.getType() );
-
-        Question derived = q.getDerived( Question.TYPE_DERIVED_SIMILAR_OPTIONS );
-        if( derived != null ) {
-            this.addDerived( "similarOptions" );
-        }
-
         this.setNextButtonType( q.getNextButtonType() );
     }
 
@@ -106,10 +98,6 @@ public final class DetectiveQuestion {
         return type;
     }
 
-    public List<String> getDerivedQuestions() {
-        return derivedQuestions;
-    }
-
     public Boolean isAllowMultipleAnswers() {
         return allowMultipleAnswers;
     }
@@ -118,11 +106,4 @@ public final class DetectiveQuestion {
         return nextButtonType;
     }
 
-    public List<String> getExcludeAnswers() {
-        return excludeAnswers;
-    }
-
-    void addDerived( String derivedType ) {
-        derivedQuestions.add( derivedType );
-    }
 }
